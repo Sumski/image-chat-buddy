@@ -18,6 +18,14 @@ serve(async (req) => {
   try {
     const { prompt, imageBase64 } = await req.json();
 
+    console.log("Function invoked with prompt:", prompt ? "provided" : "empty");
+    console.log("Image provided:", imageBase64 ? "yes" : "no");
+
+    if (!openAIApiKey) {
+      console.error("OPENAI_API_KEY is not set in environment variables");
+      throw new Error("API key configuration error");
+    }
+
     const messages = [
       { role: 'system', content: 'You are a helpful assistant that can analyze images and respond to questions about them. Be concise, helpful and friendly.' }
     ];
@@ -43,7 +51,7 @@ serve(async (req) => {
       });
     }
 
-    console.log("Sending request to OpenAI with prompt:", prompt);
+    console.log("Sending request to OpenAI...");
     
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',

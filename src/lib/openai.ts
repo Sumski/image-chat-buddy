@@ -17,10 +17,15 @@ export const fileToBase64 = (file: File): Promise<string> => {
 // Function to send a chat request with an image to the Supabase Edge Function
 export const sendChatWithImage = async (prompt: string, imageBase64: string | null) => {
   try {
+    // This is the Supabase anon key, which is public and safe to include in client-side code
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hdGd0bHhsenN4Z29kZ3V2cGFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA2Njg3NzUsImV4cCI6MjA1NjI0NDc3NX0.MMxSU4NMVGxVvbqcOr5l5hap4D8tWYkiLxHfK-KLBnY';
+    
     const response = await fetch('https://matgtlxlzsxgodguvpan.supabase.co/functions/v1/chat-with-image', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseAnonKey}`,
+        'apikey': supabaseAnonKey,
       },
       body: JSON.stringify({
         prompt,
