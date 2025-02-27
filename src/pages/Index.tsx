@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { ChatMessage as ChatMessageType } from "@/lib/types";
 import { ChatMessage } from "@/components/ChatMessage";
 import { MessageInput } from "@/components/MessageInput";
-import { fileToBase64 } from "@/lib/openai";
+import { fileToBase64, sendChatWithImage } from "@/lib/openai";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2Icon, RefreshCwIcon } from "lucide-react";
@@ -63,22 +63,7 @@ const Index = () => {
       }
       
       // Call OpenAI API through Supabase Edge Function
-      const response = await fetch('/api/chat-with-image', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: content,
-          imageBase64,
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to get response from AI");
-      }
+      const data = await sendChatWithImage(content, imageBase64);
       
       // Add AI response to chat
       const aiMessage: ChatMessageType = {

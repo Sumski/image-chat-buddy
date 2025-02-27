@@ -13,3 +13,29 @@ export const fileToBase64 = (file: File): Promise<string> => {
     reader.onerror = error => reject(error);
   });
 };
+
+// Function to send a chat request with an image to the Supabase Edge Function
+export const sendChatWithImage = async (prompt: string, imageBase64: string | null) => {
+  try {
+    const response = await fetch('https://ffybzezijbncyqhbokiy.supabase.co/functions/v1/chat-with-image', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt,
+        imageBase64,
+      }),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to get response from AI');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error in sendChatWithImage:', error);
+    throw error;
+  }
+};
