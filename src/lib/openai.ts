@@ -17,7 +17,7 @@ export const fileToBase64 = (file: File): Promise<string> => {
 // Function to send a chat request with an image to the Supabase Edge Function
 export const sendChatWithImage = async (prompt: string, imageBase64: string | null) => {
   try {
-    const response = await fetch('https://ffybzezijbncyqhbokiy.supabase.co/functions/v1/chat-with-image', {
+    const response = await fetch('https://matgtlxlzsxgodguvpan.supabase.co/functions/v1/chat-with-image', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

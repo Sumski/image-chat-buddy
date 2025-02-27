@@ -43,6 +43,8 @@ serve(async (req) => {
       });
     }
 
+    console.log("Sending request to OpenAI with prompt:", prompt);
+    
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -59,10 +61,12 @@ serve(async (req) => {
     const data = await response.json();
     
     if (!response.ok) {
+      console.error("OpenAI API error:", data);
       throw new Error(data.error?.message || 'Unknown error occurred');
     }
 
     const assistantResponse = data.choices[0].message.content;
+    console.log("Received response from OpenAI");
 
     return new Response(JSON.stringify({ response: assistantResponse }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
