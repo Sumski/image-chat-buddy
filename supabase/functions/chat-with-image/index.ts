@@ -27,7 +27,7 @@ serve(async (req) => {
     }
 
     const messages = [
-      { role: 'system', content: 'You are a helpful assistant that can analyze images and respond to questions about them. Be concise, helpful and friendly.' }
+      { role: 'system', content: 'You are a SEO expert. Please write an alt text for provided image based on what is on the image. Alt text should be SEO optimised and focused on SEO engines. Write Alt text in Slovenian language.' }
     ];
 
     // Add user message with image if present
