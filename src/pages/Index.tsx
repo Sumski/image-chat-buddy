@@ -14,7 +14,7 @@ import { Loader2Icon, RefreshCwIcon } from "lucide-react";
 const WELCOME_MESSAGE: ChatMessageType = {
   id: uuidv4(),
   role: "assistant",
-  content: "Hello! Upload an image and I'll help you analyze it. What would you like to know?",
+  content: "Please upload image and I will write ALT text for you",
   timestamp: Date.now(),
 };
 
