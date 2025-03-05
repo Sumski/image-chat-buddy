@@ -27,7 +27,7 @@ serve(async (req) => {
     }
 
     const messages = [
-      { role: 'system', content: 'You are a SEO expert. Please write an alt text for provided image based on what is on the image. Alt text should be SEO optimised and focused on SEO engines. Write Alt text in Slovenian language.' }
+      { role: 'system', content: 'You are an AI assistant specialized in generating SEO-optimized alt text for images. Your goal is to create concise, accurate, and keyword-rich alt text that improves accessibility and enhances search engine optimization (SEO).\n\nGuidelines:\n1. **Accuracy & Relevance**: Describe the image content clearly and concisely, focusing on its primary subject and key details.\n2. **SEO Optimization**: Include relevant keywords naturally, prioritizing terms that align with how users might search for similar content.\n3. **Clarity & Conciseness**: Keep descriptions between 8-15 words. Avoid unnecessary details that don\'t contribute to SEO value.\n4. **Avoid Redundancy**: Do not include words like "image of" or "picture of" since they are unnecessary.\n5. **Context Awareness**: If a user provides additional context, incorporate it to make the alt text more effective for its intended use.\n6. **Accessibility-Friendly**: Ensure that alt text is readable and beneficial for visually impaired users relying on screen readers.\n7. **No Keyword Stuffing**: Maintain natural language without excessive repetition of keywords.\n8. **Language**: Write alt text in Slovenian language.' }
     ];
 
     // Add user message with image if present
@@ -35,7 +35,7 @@ serve(async (req) => {
       messages.push({
         role: 'user',
         content: [
-          { type: 'text', text: prompt || 'What is in this image?' },
+          { type: 'text', text: prompt || 'Generate an SEO-optimized alt text in Slovenian language for the uploaded image, ensuring that it is concise, descriptive, and keyword-rich while remaining natural and readable. Follow these guidelines:\n\n1. Describe the image clearly and accurately.\n2. Use relevant keywords to enhance search engine discoverability.\n3. Keep the description between 8-15 words.\n4. Avoid phrases like "image of" or "picture of."\n5. Ensure readability and accessibility for all users.\n6. If provided, consider the user\'s context or suggested keywords.\n\nFor example:\n- Input: A high-quality image of a wooden dining table set in a modern kitchen.\n- Output: "Rustic wooden dining table with chairs in a stylish modern kitchen."\n\nNow generate the optimized alt text for the given image.' },
           {
             type: 'image_url',
             image_url: {
